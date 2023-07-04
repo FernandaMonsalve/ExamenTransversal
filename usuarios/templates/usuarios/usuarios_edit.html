@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios edit</title>
+</head>
+<body>
+    <div>
+        {% if usuario %}
+        <h2>Formulario editar usuarios</h2>
+        <form action="{% url 'usuariosUpdate' %}" method="POST">
+            {% csrf_token %}
+            <pre>Rut:               <input type="text" name="rut" value="{{usuario.rut}}"></pre>
+            <pre>Nombre:            <input type="text" name="nombre" value="{{usuario.nombre}}"></pre>
+            <pre>Apellido paterno:  <input type="text" name="paterno" value="{{usuario.apellido_peterno}}"></pre>
+            <pre>Apellido materno:  <input type="text" name="materno" value="{{usuario.apellido_materno}}"></pre>
+            <pre>Fecha nacimiento:  <input type="date" name="fechaNac" value="{{usuario.fecha_nacimiento|date:'YYYY-MM-DD'}}"></pre>
+            <pre>Genero:            <select name="genero">
+                {% for genero in generos %}
+                    {% if genero.genero == usuario.id_genero.genero %}
+                        <option value="{{genero.id_genero}}" selected>{{genero.genero}}</option>
+                    {% else %}
+                        <option value="{{genero.id_genero}}" selected>{{genero.genero}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select></pre>
+            <pre>Celular:           <input type="text" name="telefono" value="{{usuario.telefono}}"></pre>
+            <pre>Email:             <input type="mail" name="email" value="{{usuario.email}}"></pre>
+            <pre>Direccion:         <input type="text" name="direccion" value="{{usuario.direccion}}"></pre>
+            <input type="submit" name="opcion" value="Actualizar">
+        </form>
+        {% endif %}
+        <br>
+        
+        <div id="idMensajes">
+            {% if mensaje %}
+                {{mensaje}}
+            {% endif %}
+        </div>
+        <a href="{% url 'crud' %}"> Volver </a>
+        <br>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
